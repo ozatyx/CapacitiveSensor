@@ -29,12 +29,8 @@
 // ensure this library description is only included once
 #ifndef CapacitiveSensor_h
 #define CapacitiveSensor_h
-
-#if ARDUINO >= 100
+#include "util/OneWire_direct_gpio.h"
 #include "Arduino.h"
-#else
-#include "WProgram.h"
-#endif
 
 // Direct I/O through registers and bitmask (from OneWire library)
 

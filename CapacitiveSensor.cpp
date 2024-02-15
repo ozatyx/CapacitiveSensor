@@ -26,14 +26,8 @@
  DEALINGS IN THE SOFTWARE.
 */
 
-#if ARDUINO >= 100
-#include "Arduino.h"
-#else
-#include "WProgram.h"
-#include "pins_arduino.h"
-#include "WConstants.h"
-#endif
 
+#include "Arduino.h"
 #include "CapacitiveSensor.h"
 
 // Constructor /////////////////////////////////////////////////////////////////
@@ -90,8 +84,7 @@ long CapacitiveSensor::capacitiveSensor(uint8_t samples)
 
 		// only calibrate if time is greater than CS_AutocaL_Millis and total is less than 10% of baseline
 		// this is an attempt to keep from calibrating when the sensor is seeing a "touched" signal
-		unsigned long diff = (total > leastTotal) ? total - leastTotal : leastTotal - total;
-		if ( (millis() - lastCal > CS_AutocaL_Millis) && diff < (int)(.10 * (float)leastTotal) ) {
+		if ( (millis() - lastCal > CS_AutocaL_Millis) && (abs(long(total  - leastTotal)) < (int)(.10 * (float)leastTotal) ) ) {
 
 			// Serial.println();               // debugging
 			// Serial.println("auto-calibrate");
